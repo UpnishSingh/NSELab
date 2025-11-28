@@ -3,13 +3,13 @@
 class VigenereCipher:
     def encrypt(self, message, key):
         cipher_text = []
-        key = key.upper()
+        key = ''.join([c for c in key.upper() if c.isalpha()])
         key_length = len(key)
 
         for i, char in enumerate(message):
             if char.isalpha():
                 offset = 65 if char.isupper() else 97
-                key_char = key[i % key_length]
+                key_char = key[(len(cipher_text)) % key_length]
                 key_shift = ord(key_char) - 65
                 encrypted_char = chr((ord(char.upper()) - 65 + key_shift) % 26 + offset)
         
@@ -23,13 +23,13 @@ class VigenereCipher:
     
     def decrypt(self, message, key):
         plain_text = []
-        key = key.upper()
+        key = ''.join([c for c in key.upper() if c.isalpha()])
         key_length = len(key)
 
         for i, char in enumerate(message):
             if char.isalpha():
                 offset = 65 if char.isupper() else 97
-                key_char = key[i % key_length]
+                key_char = key[(len(plain_text)) % key_length]
                 key_shift = ord(key_char) - 65
                 decrypted_char = chr((ord(char.upper()) - 65 - key_shift + 26) % 26 + offset)
         
@@ -49,5 +49,4 @@ if __name__ == "__main__":
     cipher_text = vigenere_cipher.encrypt(message, key)
     print("Encrypted Text: " + cipher_text)
 
-    decrypted_text = vigenere_cipher.decrypt(cipher_text, key)
-    print("Decrypted Text: " + decrypted_text)
+    decrypted_text = vigenere_cipher.decryp
