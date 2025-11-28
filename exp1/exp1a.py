@@ -10,7 +10,7 @@ class CaesarCipher:
                 base = ord('A') if char.isupper() else ord('a')
                 result += chr((ord(char) - base + shift) % 26 + base)
             else:
-                result += char
+                result += chr((ord(char) + (key % 95) - 32) % 95 + 32)
         
         return result
     
@@ -23,14 +23,17 @@ class CaesarCipher:
                 base = ord('A') if char.isupper() else ord('a')
                 result += chr((ord(char) - base - shift) % 26 + base)
             else:
-                result += char
+                result += chr((ord(char) - (key % 95) - 32) % 95 + 32)
         
         return result
 
 if __name__ == "__main__":
     caesar_cipher = CaesarCipher()
     message = str(input("Enter a message: "))
-    key = int(input("Enter a key: "))
+    try:
+        key = int(input("Enter a key: "))
+    except:
+        key = 0
 
     cipher_text = caesar_cipher.encrypt(message, key)
     print("Encrypted Message: ", cipher_text)
